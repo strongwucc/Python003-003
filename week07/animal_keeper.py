@@ -7,6 +7,7 @@ from abc import ABCMeta, abstractmethod
 
 class Animal(metaclass=ABCMeta):
 
+    @abstractmethod
     def __init__(self, category, shape, character):
         self.category = category
         self.shape = shape
@@ -17,9 +18,8 @@ class Animal(metaclass=ABCMeta):
         return (self.shape == '中型' or self.shape == '大型') and self.category == '食肉' and self.character == '凶猛'
 
     @property
-    @abstractmethod
     def as_pets(self):
-        pass
+        return not self.is_ferocious
 
 
 '''
@@ -36,10 +36,6 @@ class Cat(Animal):
         self.name = name
         super().__init__(category, shape, character)
 
-    @property
-    def as_pets(self):
-        return not self.is_ferocious
-
 
 '''
 狗类
@@ -54,10 +50,6 @@ class Dog(Animal):
     def __init__(self, name, category, shape, character):
         self.name = name
         super().__init__(category, shape, character)
-
-    @property
-    def as_pets(self):
-        return not self.is_ferocious
 
 
 '''
@@ -77,8 +69,9 @@ class Zoo(object):
     def add_animal(cls, animal):
         if animal not in cls.animals:
             cls.animals[animal] = animal
-        if animal.__class__ == Cat:
-            cls.cat = True
+
+        if not hasattr(cls, animal.__class__.__name__):
+            setattr(cls, animal.__class__.__name__, animal)
 
 
 if __name__ == '__main__':
@@ -91,5 +84,5 @@ if __name__ == '__main__':
     z.add_animal(cat1)
     z.add_animal(dog1)
     # 动物园是否有猫这种动物
-    have_cat = hasattr(z, 'cat')
+    have_cat = hasattr(z, 'Cat')
     print(have_cat)
