@@ -85,11 +85,11 @@ WSGI_APPLICATION = 'Lucien.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'HOST': '127.0.0.1',
+        'PORT': '33060',
         'NAME': 'lucien',
-        'USER': 'root',
-        'PASSWORD': '123456'
+        'USER': 'homestead',
+        'PASSWORD': 'secret'
     }
 }
 

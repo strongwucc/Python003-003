@@ -26,14 +26,15 @@
         <div class="login-form">
             <form action="/auth/login" method="POST">
                 {% csrf_token %}
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="inputUserName">用户名</label>
                     <input type="text" class="form-control" id="inputUserName" aria-describedby="usernameHelp">
                 </div>
                 <div class="form-group">
                     <label for="inputPassword">密码</label>
                     <input type="password" class="form-control" id="inputPassword">
-                </div>
+                </div> -->
+                {{ login_form }}
                 <button type="submit" class="btn btn-primary">登录</button>
             </form>
         </div>
