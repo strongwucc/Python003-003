@@ -5,7 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello</title>
 </head>
+<style>
+    html,body {
+        height: 100%;
+    }
+    .container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 100px;
+        font-weight: bold;
+    }
+</style>
 <body>
-    <div>Hello</div>
+    <div class="container">Hello, {{request.user}}</div>
 </body>
 </html>

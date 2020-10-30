@@ -18,13 +18,58 @@
             justify-content: center;
             align-items: center;
         }
+        .login-form {
+            padding: 50px 100px;
+            box-sizing: border-box;
+            background: #cccccc;
+            border-radius: 10px;
+        }
+        form {
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+            align-items: center;
+        }
+        .field {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 80px;
+        }
+        .field .label {
+            width: 50px;
+            flex: none;
+            text-align: right;
+            padding-right: 20px;
+            box-sizing: content-box;
+            color: #333333;
+        }
+        .field input {
+            flex: auto;
+            border: none;
+            height: 40px;
+            padding: 0 10px;
+        }
+        .errorlist {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .errorlist li{
+            color: crimson;
+        }
+        button {
+            margin-top: 20px;
+            width: 150px;
+            height: 50px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <div class="login-form">
-            <form action="/auth/login" method="POST">
+            <form action="/login" method="POST">
                 {% csrf_token %}
                 <!-- <div class="form-group">
                     <label for="inputUserName">用户名</label>
@@ -34,7 +79,13 @@
                     <label for="inputPassword">密码</label>
                     <input type="password" class="form-control" id="inputPassword">
                 </div> -->
-                {{ login_form }}
+                {% for field in login_form %}
+                <div class="field">
+                    <span class="label">{{field.label}}</span>
+                    {{field}}
+                </div>
+                {{field.errors}}
+                {% endfor %}
                 <button type="submit" class="btn btn-primary">登录</button>
             </form>
         </div>
