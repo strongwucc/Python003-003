@@ -10,7 +10,7 @@ import pymysql
 from scrapy.exceptions import DropItem
 from spiders.items import MobileItem, CommentItem
 from backend.models import Mobile
-
+from django.conf import settings
 
 class SpidersPipeline:
 
@@ -24,18 +24,17 @@ class SpidersPipeline:
             raise DropItem("缺少MySQL的配置")
 
         return cls(
-            mysql_settings=crawler.settings.get('MYSQL_SETTINGS'),
+            mysql_settings=settings.DATABASES.get('default'),
         )
 
     def open_spider(self, spider):
         try:
             self.client = pymysql.connect(
-                host=self.mysql_settings['host'],
-                port=self.mysql_settings['port'],
-                user=self.mysql_settings['user'],
-                password=self.mysql_settings['password'],
-                db=self.mysql_settings['db'],
-                charset=self.mysql_settings['charset']
+                host=self.mysql_settings['HOST'],
+                port=int(self.mysql_settings['PORT']),
+                user=self.mysql_settings['USER'],
+                password=self.mysql_settings['PASSWORD'],
+                db=self.mysql_settings['NAME'],
             )
         except Exception as e:
             raise DropItem(f'MySQL 连接失败：{e}')
@@ -63,8 +62,6 @@ class SpidersPipeline:
             comments = item['comments']
 
             mobile.save()
-
-            print(mobile['name'])
 
             for comment in comments:
                 comment['mobile'] = Mobile.objects.get(name=mobile['name'])

@@ -7,6 +7,7 @@ from scrapy import signals
 import pandas as pd
 from sqlalchemy import create_engine
 from snownlp import SnowNLP
+from django.conf import settings
 
 
 class MobileSpider(scrapy.Spider):
@@ -127,14 +128,15 @@ class MobileSpider(scrapy.Spider):
         if next_page:
             yield scrapy.Request(next_page, callback=lambda response, mobile=mobile: self.parse_detail(response, mobile, comments))
         else:
-            print('######################################3')
             item = {'mobile': mobile, 'comments': comments}
             yield item
 
     def spider_closed(self, spider):
         # spider.logger.info('Spider closed: %s', spider.name)
+        
+        db_setting = settings.DATABASES['default']
         engine = create_engine(
-            f'mysql+pymysql://root:lucienwu0101@localhost:3306/graduation')
+            f'mysql+pymysql://{db_setting["USER"]}:{db_setting["PASSWORD"]}@{db_setting["HOST"]}:{db_setting["PORT"]}/{db_setting["NAME"]}')
 
         sql = 'select * from backend_comment;'
         df = pd.read_sql_query(sql, engine)

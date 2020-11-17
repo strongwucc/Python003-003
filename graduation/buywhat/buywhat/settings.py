@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'buywhat.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': '127.0.0.1',
+        'HOST': 'localhost',
         'PORT': '3306',
         'NAME': 'graduation',
         'USER': 'root',
-        'PASSWORD': 'lucienwu0101',
+        'PASSWORD': '123456',
     }
 }
 

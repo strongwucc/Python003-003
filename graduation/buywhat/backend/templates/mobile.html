@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}
+  热销手机
+{% endblock %}
+
+{% block css %}
+
+  <style>
+    .mobile-container {
+      margin-top: 100px;
+    }
+  </style>
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="mobile-container">
+    <div class="title">手机 Top10</div>
+    <div class="tables">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">排名</th>
+            <th scope="col">名称</th>
+            <th scope="col">推荐数</th>
+            <th scope="col">不推荐数</th>
+            <th scope="col">评价数</th>
+            <th scope="col">平台</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for mobile in mobiles %}
+          <tr>
+            <th scope="row">{{ mobile.id }}</th>
+            <td>{{ mobile.name }}</td>
+            <td>{{ mobile.worth_n }}</td>
+            <td>{{ mobile.not_worth_n }}</td>
+            <td><a href="./comment/{{mobile.id}}">{{ mobile.comment_n }}</a></td>
+            <td>{{ mobile.source }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock %}

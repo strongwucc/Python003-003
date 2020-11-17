@@ -91,16 +91,6 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-# MySQL 配置信息
-MYSQL_SETTINGS = {
-    'host': '127.0.0.1',
-    'port': 3306,
-    'user': 'root',
-    'password': 'lucienwu0101',
-    'db': 'graduation',
-    'charset': 'utf8mb4'
-}
-
 BASE_DIR = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(BASE_DIR)
